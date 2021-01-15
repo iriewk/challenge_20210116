@@ -1,8 +1,13 @@
+/**
+ * https://twitter.com/miharasan/status/1348567822377521154
+ */
+
 const str = {};
 Array.from("ABCDEFGHIJ").forEach((v, i) => str[v] = i);
 const ev1 = Array.from("FDCAJH");
 const ev2 = Array.from("IBCFEH");
 const ev3 = Array.from("FBAECIIJEGIH");
+const hCand = [1, 5, 6];
 var cnt = 0;
 
 /**
@@ -17,6 +22,9 @@ function main() {
         if (unselected.length == 0) {
             // パターンが組めたので検証
             return evaulate(selected);
+        } else if (selected.length === 8 && hCand.indexOf(selected[7]) < 0) {
+            // Hの候補は1,5,6なのでそれ以外は無視
+            return false;
         } else {
             let hit = unselected.find(v => {
                 let other = unselected.filter(vv => vv != v);
@@ -52,4 +60,7 @@ function evaulate(mapping) {
     }
 }
 
+// 実行
+const startTime = Date.now();
 main();
+console.log(Date.now() - startTime);
